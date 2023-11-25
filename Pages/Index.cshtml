@@ -1,0 +1,123 @@
+﻿@page
+@using LLama.Web.Common;
+
+@model IndexModel
+@{
+    ViewData["Title"] = "CHATTY";
+}
+
+@Html.AntiForgeryToken()
+<!-- start: Chat -->
+<section class="chat-section">
+    <div  id="load-model">
+        <div class="d-flex flex-row justify-content-between border-bottom p-1 align-items-center">
+            <div>
+                <span>@ViewData["Title"]</span>
+            </div>
+            <div>
+                <small>Socket: <b id="socket">Disconnected</b></small>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column overflow-auto">
+            <form id="SessionParameters">
+                <div class="d-flex flex-column m-1">
+                    <div class="d-flex flex-column mb-2">
+                        <small>Model</small>
+                        @Html.DropDownListFor(m => m.SessionConfig.Model, new SelectList(Model.Options.Models, "Name", "Name"), new { @class = "form-control prompt-control", required = "required", autocomplete = "off" })
+                    </div>
+                    <div class="d-flex flex-column mb-2">
+                        <small>Inference Type</small>
+                        @Html.DropDownListFor(m => m.SessionConfig.ExecutorType, Html.GetEnumSelectList<LLamaExecutorType>(), new { @class = "form-control prompt-control", required = "required", autocomplete = "off" })
+                    </div>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active w-50" id="nav-prompt-tab" data-bs-toggle="tab" data-bs-target="#nav-prompt" type="button" role="tab">Prompt</button>
+                            <button class="nav-link w-50" id="nav-params-tab" data-bs-toggle="tab" data-bs-target="#nav-params" type="button" role="tab">Parameters</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-prompt" role="tabpanel" aria-labelledby="nav-prompt-tab">
+                            <div class="d-flex flex-column mb-2">
+                                <small>Prompt</small>
+                                @Html.TextAreaFor(m => Model.SessionConfig.Prompt, new { @type = "text", @class = "form-control prompt-control", rows = 8 })
+                            </div>
+
+                            <div class="d-flex flex-column mb-2">
+                                <small>AntiPrompts</small>
+                                @Html.TextBoxFor(m => Model.SessionConfig.AntiPrompt, new { @type = "text", @class = "form-control prompt-control" })
+                            </div>
+
+                            <div class="d-flex flex-column mb-2">
+                                <small>OutputFilter</small>
+                                @Html.TextBoxFor(m => Model.SessionConfig.OutputFilter, new { @type = "text", @class = "form-control prompt-control" })
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-params" role="tabpanel" aria-labelledby="nav-params-tab">
+                            @{
+                                await Html.RenderPartialAsync("_Parameters", Model.InferenceOptions);
+                            }
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="d-flex flex-grow-1"></div>
+        <div id="session-details" class="m-1"></div>
+        <div class="m-1">
+            <button class="btn btn-outline-success w-100" type="button" id="load">
+
+                <div class="d-flex align-items-center justify-content-center">
+                    <img class="spinner me-2" style="display:none" src="~/image/loading.gif" width="20" />
+                    Begin Session
+                </div>
+
+            </button>
+            <button class="btn btn-outline-danger w-100" type="button" id="unload" style="display:none">End Session</button>
+        </div>
+    </div>
+    <div class="chat-container">
+        <!-- start: Content -->
+        <div class="chat-content">
+            <div class="conversation active">
+                <div class="conversation-top">
+                    <div class="conversation-user">
+                        <img class="conversation-user-image" src="~/image/robot.png" alt="">
+                        <div>
+                            <div class="conversation-user-name">CHATTY</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="conversation-main" id="scroll-container">
+                    <ul class="conversation-wrapper p-0" id="output-container">
+                        
+                    </ul>
+                </div>
+                <div class="conversation-form">
+                    <button type="button" class="conversation-form-button"><i class="bi-emoji-smile"></i></button>
+                    <div class="conversation-form-group">
+                        <textarea id="input"class="conversation-form-input" rows="1" placeholder="Type here..."></textarea>
+                    </div>
+                    <button type="button" id="send" class="input-control conversation-form-button conversation-form-submit" disabled="disabled" autocomplete="off"><i class="bi-send"></i></button>
+                </div>
+            </div>
+
+            <!-- end: Conversation -->
+        </div>
+        <!-- end: Content -->
+    </div>
+</section>
+<!-- end: Chat -->
+
+@{
+    await Html.RenderPartialAsync("_ChatTemplates");
+}
+
+@section Scripts {
+    <script src="~/js/sessionconnectionchat.js"></script>
+    <script src="~/js/script.js"></script>
+    <script>
+        createConnectionSessionChat();
+    </script>
+}

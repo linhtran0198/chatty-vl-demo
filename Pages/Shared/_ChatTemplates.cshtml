@@ -1,0 +1,78 @@
+﻿<script id="outputErrorTemplate" type="text/html">
+    <i class="form-control text-danger" style="text-transform:uppercase">{{text}}</i>
+</script>
+
+<script id="outputInfoTemplate" type="text/html">
+    <i class="form-control text-success" style="text-transform:uppercase">{{text}}</i>
+</script>
+
+<script id="outputUserTemplate" type="text/html">
+    @* <div class="d-flex flex-row form-control bg-light">
+         <div class="m-2 me-4">
+             <img src="~/image/human.png" width="60"/>
+         </div>
+        <div class="d-flex flex-column flex-fill justify-content-between">
+            <span class="content" style="resize:none" >{{text}}</span>
+             <div class="d-flex justify-content-end">
+                 <i>{{date}}</i>
+            </div>
+        </div>
+    </div> *@
+    <li class="conversation-item mt-3">
+        <div class="conversation-item-side">
+            <img class="conversation-item-image" src="~/image/user.png" alt="">
+        </div>
+        <div class="conversation-item-content">
+            <div class="conversation-item-wrapper">
+                <div class="conversation-item-box">
+                    <div class="conversation-item-text">
+                        @* <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p> *@
+                        <span class="content" style="resize:none" >{{text}}</span>
+                        <div class="conversation-item-time">{{date}}</div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </li>
+</script>
+
+<script id="outputBotTemplate" type="text/html">
+     @* <div class="d-flex flex-row form-control">
+        <div class="m-2 me-4">
+            <img src="~/image/robot.png" width="60"/>
+        </div>
+        <div id="{{uniqueId}}" class="d-flex flex-column flex-fill justify-content-between">
+            <span class="content"><img src="~/image/loading.gif" width="30" /></span>
+            <div class="d-flex justify-content-end">
+                <div class="d-flex flex-column align-items-end">
+                    <i class="date"></i>
+                    <i>
+                        <small class="signature"></small>
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div> *@
+    <li class="conversation-item me">
+    <div class="conversation-item-side">
+        <img class="conversation-item-image" src="~/image/bot.png" alt="">
+    </div>
+    <div id="{{uniqueId}}" class="conversation-item-content">
+            @* <span ></span> *@
+        <div class="conversation-item-wrapper">
+            <div class="conversation-item-box">
+                <div class="conversation-item-text">
+                        <span class="content" style="resize:none" ><img src="~/image/loading.gif" width="30" /></span>
+                    @* <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet natus repudiandae quisquam sequi nobis suscipit consequatur rerum alias odio repellat!</p> *@
+                    <div class="conversation-item-time date"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</li>
+</script>
+
+<script id="signatureTemplate" type="text/html">
+    <span>{{content}}</span>
+</script>
