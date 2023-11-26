@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LLama.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2ab4098aa1b4a3dd0a074607d52c827e54d0611d")]
 [assembly: System.Reflection.AssemblyProductAttribute("LLama.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LLama.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
