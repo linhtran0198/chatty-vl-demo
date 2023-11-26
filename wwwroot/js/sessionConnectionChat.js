@@ -1,7 +1,7 @@
 const createConnectionSessionChat = () => {
   
     const element = document.getElementById("load");
-    setInterval(function () { element.click() }, 3000);
+    setInterval(function () { element.click() }, 1000);
     const outputErrorTemplate = $("#outputErrorTemplate").html();
     const outputInfoTemplate = $("#outputInfoTemplate").html();
     const outputUserTemplate = $("#outputUserTemplate").html();

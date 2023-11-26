@@ -7,8 +7,12 @@
 }
 
 @Html.AntiForgeryToken()
+<!-- Preloader -->
+<div class="loader-page">
+    <i class="bi bi-arrow-clockwise"></i>
+</div>
 <!-- start: Chat -->
-<section class="chat-section">
+<section class="chat-section main">
     <div  id="load-model">
         <div class="d-flex flex-row justify-content-between border-bottom p-1 align-items-center">
             <div>
@@ -119,5 +123,20 @@
     <script src="~/js/script.js"></script>
     <script>
         createConnectionSessionChat();
+        const loader = document.querySelector('.loader-page');
+        const main = document.querySelector('.chat-section');
+
+        function init() {
+            setTimeout(() => {
+                main.style.transition = "1s ease-in";
+                loader.style.opacity = 0;
+                loader.style.display = 'none';
+
+                // main.style.display = 'block';
+                setTimeout(() => (main.style.opacity = 1), 100);
+            }, 2000);
+        }
+
+        init();
     </script>
 }
